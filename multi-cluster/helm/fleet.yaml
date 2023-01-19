@@ -10,6 +10,7 @@ targetCustomizations:
   helm:
     values:
       replicas: 3
+      variableName: global.fleet.clusterLabels.LABELNAME
   clusterSelector:
     matchLabels:
       env: test
