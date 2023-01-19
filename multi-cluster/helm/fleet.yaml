@@ -1,25 +1,19 @@
-namespace: fleet-mc-helm-example
-targetCustomizations:
-- name: dev
-  helm:
-    values:
-      replication: false
-      variableName: global.fleet.clusterLabels.LABELNAME
+# The default namespace to be applied to resources. This field is not used to
+# enforce or lock down the deployment to a specific namespace, but instead
+# provide the default value of the namespace field if one is not specified
+# in the manifests.
+# Default: default
+defaultNamespace: default
 
-- name: test
-  helm:
-    values:
-      replicas: 3
-      variableName: global.fleet.clusterLabels.LABELNAME
-  clusterSelector:
-    matchLabels:
-      env: test
+# All resources will be assigned to this namespace and if any cluster scoped
+# resource exists the deployment will fail.
+# Default: ""
+namespace: default
 
-- name: prod
-  helm:
-    values:
-      serviceType: LoadBalancer
-      replicas: 3
-  clusterSelector:
-    matchLabels:
-      env: prod
+
+helm:
+  values:
+    any-custom: value
+  # All labels on Rancher clusters are available using global.fleet.clusterLabels.LABELNAME
+  # These can now be accessed directly as variables
+    variableName: global.fleet.clusterLabels.LABELNAME
